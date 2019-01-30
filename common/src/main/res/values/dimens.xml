@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font_test_size">14sp</dimen>
+    <dimen name="font_16sp_size">16sp</dimen>
+    <dimen name="font_12sp_size">12sp</dimen>
+    <dimen name="font_10sp_size">10sp</dimen>
+    <dimen name="font_22_size">22sp</dimen>
+    <dimen name="font_20_size">20sp</dimen>
+    <dimen name="font_title_size">16sp</dimen>
+    <dimen name="action_bar_title_font_size">16sp</dimen>
+    <dimen name="action_bar_title_right_font_size">14sp</dimen>
+    <dimen name="pager_margin">-30dp</dimen>
+
+
+</resources>

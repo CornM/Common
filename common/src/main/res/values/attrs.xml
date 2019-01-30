@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyActionBar">
+        <attr name="visibility_iv_left" format="boolean"></attr>
+        <attr name="visibility_iv_right" format="boolean"></attr>
+        <attr name="visibility_tv_right" format="boolean"></attr>
+        <attr name="title" format="string"></attr>
+        <attr name="title_color" format="reference"></attr>
+        <attr name="right_text" format="string"></attr>
+        <attr name="background_iv_left" format="reference"></attr>
+        <attr name="background_iv_rigt" format="reference"></attr>
+        <attr name="title_font_color" format="color|reference"></attr>
+        <attr name="background_color" format="color|reference"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="MyTextView">
+        <attr name="tv_width" format="dimension" />
+        <attr name="tv_height" format="dimension" />
+    </declare-styleable>
+
+
+    <declare-styleable name="SwipeLayout">
+        <attr name="drag_edge">
+            <flag name="left" value="1" />
+            <flag name="right" value="2" />
+            <flag name="top" value="4" />
+            <flag name="bottom" value="8" />
+        </attr>
+        <attr name="leftEdgeSwipeOffset" format="dimension" />
+        <attr name="rightEdgeSwipeOffset" format="dimension" />
+        <attr name="topEdgeSwipeOffset" format="dimension" />
+        <attr name="bottomEdgeSwipeOffset" format="dimension" />
+        <attr name="show_mode" format="enum">
+            <enum name="lay_down" value="0" />
+            <enum name="pull_out" value="1" />
+        </attr>
+        <attr name="clickToClose" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="RatioImageView">
+
+        <!--宽度是否根据src图片的比例来测量（高度已知）-->
+        <attr name="is_width_fix_drawable_size_ratio" format="boolean" />
+        <!--高度是否根据src图片的比例来测量（宽度已知）-->
+        <attr name="is_height_fix_drawable_size_ratio" format="boolean" />
+
+        <!-- 高度设置，参考宽度，如0.5 , 表示 高度＝宽度×０.5 -->
+        <attr name="height_to_width_ratio" format="float" />
+        <!-- 宽度设置，参考高度，如0.5 , 表示 宽度＝高度×０.5 -->
+        <attr name="width_to_height_ratio" format="float" />
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="MyRadioButton">
+        <attr name="rb_width" format="dimension" />
+        <attr name="rb_height" format="dimension" />
+    </declare-styleable>
+
+</resources>
