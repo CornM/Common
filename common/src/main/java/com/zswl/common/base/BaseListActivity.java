@@ -69,7 +69,7 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
                     adapter.refreshData(result);
                     refreshLayout.finishRefreshing();
                 }
-
+                finishLoadData();
 
             }
         };
@@ -122,6 +122,12 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
                 .subscribe(observer);
     }
 
+    /**
+     * 数据刷新或者加载完之后调用此方法
+     */
+    public void finishLoadData() {
+
+    }
 
     /**
      * 获取api接口
