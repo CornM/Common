@@ -4,21 +4,14 @@ import android.annotation.SuppressLint;
 import android.widget.TextView;
 
 import com.zswl.common.R;
-import com.zswl.common.R2;
 import com.zswl.common.util.LogUtil;
 import com.zswl.common.widget.MyActionBar;
 import com.zswl.common.widget.MyWebView;
 
-import butterknife.BindView;
-
 public abstract class BaseWebViewActivity extends BackActivity {
-    @BindView(R2.id.wv)
     protected MyWebView myWebView;
-    @BindView(R2.id.tv_action_bar_title)
     TextView tvTitle;
-    @BindView(R2.id.tv_action_bar_right_text)
     protected TextView tvRight;
-    @BindView(R2.id.mab)
     protected MyActionBar actionBar;
 
 
@@ -30,6 +23,11 @@ public abstract class BaseWebViewActivity extends BackActivity {
     @SuppressLint("JavascriptInterface")
     @Override
     protected void init() {
+        super.init();
+        myWebView = findViewById(R.id.wv);
+        tvTitle = findViewById(R.id.tv_action_bar_title);
+        tvRight = findViewById(R.id.tv_action_bar_right_text);
+        actionBar = findViewById(R.id.mab);
         if (getWebJs() != null) {
             myWebView.addJavascriptInterface(getWebJs(), "android");
         }

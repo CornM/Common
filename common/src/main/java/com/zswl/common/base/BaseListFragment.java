@@ -11,7 +11,6 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.footer.LoadingView;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.zswl.common.R;
-import com.zswl.common.R2;
 import com.zswl.common.util.RxUtil;
 
 import java.lang.reflect.Constructor;
@@ -20,13 +19,11 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import butterknife.BindView;
 import io.reactivex.Observable;
 
 public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycleViewAdapter<B>> extends BaseFragment {
-    @BindView(R2.id.rv)
+
     protected RecyclerView recyclerView;
-    @BindView(R2.id.refreshLayout)
     protected TwinklingRefreshLayout refreshLayout;
     protected A adapter;
     private int page;
@@ -37,6 +34,8 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
 
     @Override
     protected void init(View view) {
+        recyclerView = view.findViewById(R.id.rv);
+        refreshLayout = view.findViewById(R.id.refreshLayout);
         initAdapter();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(getLayoutManager());
