@@ -9,6 +9,10 @@ import com.zswl.common.base.BasePhotoListActivity;
 import com.zswl.common.base.ImageBean;
 import com.zswl.common.base.ViewHolder;
 import com.zswl.common.util.GlideUtil;
+import com.zswl.common.widget.SpinnerPopWindow;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -36,6 +40,13 @@ public class MainActivity extends BasePhotoListActivity {
     public void clickImg() {
 //        startActivity(new Intent(context, Main2Activity.class));
 //        changeHeaderImg();
+        List<String> list=new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            list.add(i+"测试");
+        }
+        SpinnerPopWindow<String> stringSpinnerPopWindow=new SpinnerPopWindow<>(context,list);
+        stringSpinnerPopWindow.showAsDropDown(textView);
+
     }
 
 //    @Override
