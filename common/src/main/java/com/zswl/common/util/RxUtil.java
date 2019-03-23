@@ -75,6 +75,27 @@ public class RxUtil {
         };
     }
 
+    public static ObservableTransformer bindLifeNoMap(Observable<LifeEvent> lifeSubject ) {
+        //被监视的Observable
+        final Observable<LifeEvent> observable = lifeSubject.filter(new Predicate<LifeEvent>() {
+
+            @Override
+            public boolean test(LifeEvent activityEvent) throws Exception {
+                return activityEvent.equals(LifeEvent.DESTROY);
+            }
+        });
+        return new ObservableTransformer() {
+            @Override
+            public ObservableSource apply(Observable upstream) {
+
+                return upstream
+                        .takeUntil(observable)
+                        .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+
+            }
+        };
+    }
+
     public enum LifeEvent {
         CREATE,
         DESTROY

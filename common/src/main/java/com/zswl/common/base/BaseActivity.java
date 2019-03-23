@@ -10,6 +10,7 @@ import com.zswl.common.util.RxUtil;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
 
 /**
@@ -51,5 +52,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void init();
 
 
+    /**
+     * 绑定生命周期
+     *
+     * @param observable
+     * @param <T>
+     * @return
+     */
+    protected <T> Observable<T> getLifeObservable(Observable<HttpResult<T>> observable) {
 
+
+        return observable.compose(RxUtil.io_main(lifeSubject));
+    }
 }

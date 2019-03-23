@@ -47,7 +47,8 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-//        loadingDialog.dismiss();
+        if (loadingDialog != null)
+            loadingDialog.dismiss();
         if (e instanceof ExceptionHandle.ResponeThrowable) {
             onError((ExceptionHandle.ResponeThrowable) e);
         } else {

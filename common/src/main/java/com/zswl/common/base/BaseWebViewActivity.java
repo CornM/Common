@@ -1,6 +1,7 @@
 package com.zswl.common.base;
 
 import android.annotation.SuppressLint;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.zswl.common.R;
@@ -28,8 +29,15 @@ public abstract class BaseWebViewActivity extends BackActivity {
         tvTitle = findViewById(R.id.tv_action_bar_title);
         tvRight = findViewById(R.id.tv_action_bar_right_text);
         actionBar = findViewById(R.id.mab);
-        if (getWebJs() != null) {
-            myWebView.addJavascriptInterface(getWebJs(), "android");
+        String title=getActionBarTitle();
+        if (!TextUtils.isEmpty(title))
+            tvTitle.setText(title);
+        String url=getUrl();
+        myWebView.loadUrl(url);
+        LogUtil.d(TAG, url);
+        BaseWebJs baseWebJs=getWebJs();
+        if (baseWebJs != null) {
+            myWebView.addJavascriptInterface(baseWebJs, "android");
         }
 //        myWebView.setWebViewClient(new WebViewClient() {
 //            @Override
@@ -38,9 +46,7 @@ public abstract class BaseWebViewActivity extends BackActivity {
 //                return true;
 //            }
 //        });
-        myWebView.loadUrl(getUrl());
-        LogUtil.d(TAG, getUrl());
-        tvTitle.setText(getActionBarTitle());
+
 
     }
 

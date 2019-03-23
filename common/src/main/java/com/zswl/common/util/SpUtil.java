@@ -21,6 +21,8 @@ public class SpUtil {
     }
 
     public static void putValue(String key, Object value) {
+        if (value == null)
+            return;
         if (value instanceof String) {
             editor.putString(key, (String) value);
         } else {
@@ -32,6 +34,10 @@ public class SpUtil {
 
     public static String getValue(String key) {
         return preference.getString(key, "");
+    }
+
+    public static int getInt(String key) {
+        return preference.getInt(key, -1);
     }
 
 

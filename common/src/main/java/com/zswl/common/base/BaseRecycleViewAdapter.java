@@ -48,6 +48,8 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<Vie
     }
 
 
+
+
     public void refreshData(List<T> result) {
         int preSize = data.size();
         data.clear();

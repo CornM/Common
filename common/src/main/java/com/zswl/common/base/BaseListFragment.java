@@ -1,7 +1,6 @@
 package com.zswl.common.base;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -45,9 +44,7 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                isRefresh = true;
-                page = 0;
-                getListData(page);
+              refreshList();
             }
 
             @Override
@@ -91,7 +88,7 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-        } catch (Fragment.InstantiationException e) {
+        } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
@@ -154,5 +151,13 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
         return layoutManager;
     }
 
+    /**
+     * 刷新列表
+     */
+    public void refreshList() {
+        isRefresh = true;
+        page = 0;
+        getListData(page);
+    }
 
 }

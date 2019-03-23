@@ -1,6 +1,7 @@
 package com.zswl.common.base;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 
 import com.huantansheng.easyphotos.EasyPhotos;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+
+import static com.zswl.common.widget.SelectPhotoDialog.REQUEST_CODE_CAMERA;
 
 public abstract class BasePhotoActivity extends BackActivity {
     //    private String takePhotoPath;
@@ -62,6 +65,16 @@ public abstract class BasePhotoActivity extends BackActivity {
      * @param zipPath 压缩之后的图片路径
      */
     public abstract void imagePath(String srcPath, String zipPath);
+
+    /**
+     * 打开相机
+     */
+    protected void openCamera() {
+        String authority = context.getApplicationContext().getPackageName() + ".provider";
+        EasyPhotos.createCamera((Activity) context)//参数说明：上下文
+                .setFileProviderAuthority(authority)//参数说明：见下方`FileProvider的配置`
+                .start(REQUEST_CODE_CAMERA);
+    }
 
     /**
      * 选择头像

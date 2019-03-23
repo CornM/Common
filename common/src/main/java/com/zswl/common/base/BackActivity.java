@@ -13,7 +13,9 @@ public abstract class BackActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void init() {
-        findViewById(R.id.iv_left).setOnClickListener(this);
+        View backView = findViewById(R.id.iv_left);
+        if (backView != null)
+            backView.setOnClickListener(this);
     }
 
 

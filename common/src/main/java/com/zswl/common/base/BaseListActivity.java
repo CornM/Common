@@ -9,6 +9,7 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.footer.LoadingView;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 import com.zswl.common.R;
+import com.zswl.common.api.ExceptionHandle;
 import com.zswl.common.util.RxUtil;
 
 import java.lang.reflect.Constructor;
@@ -44,9 +45,7 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                isRefresh = true;
-                page = 0;
-                getListData(page);
+                refreshList();
             }
 
             @Override
@@ -69,6 +68,17 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
                 }
                 finishLoadData();
 
+            }
+
+
+            @Override
+            public void onError(ExceptionHandle.ResponeThrowable e) {
+                super.onError(e);
+                if (!isRefresh) {
+                    refreshLayout.finishLoadmore();
+                } else {
+                    refreshLayout.finishRefreshing();
+                }
             }
         };
 
@@ -113,10 +123,11 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
      * @param page
      */
     protected void getListData(int page) {
-        if (getApi(page) == null) {
+        Observable observable=getApi(page);
+        if (observable == null) {
             return;
         }
-        getApi(page).compose(RxUtil.io_main(lifeSubject))
+        observable.compose(RxUtil.io_main(lifeSubject))
                 .subscribe(observer);
     }
 
@@ -146,4 +157,12 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
         return layoutManager;
     }
 
+    /**
+     * 刷新列表
+     */
+    public void refreshList() {
+        isRefresh = true;
+        page = 0;
+        getListData(page);
+    }
 }
