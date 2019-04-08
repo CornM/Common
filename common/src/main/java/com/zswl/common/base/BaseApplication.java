@@ -9,7 +9,6 @@ import java.util.Stack;
 public class BaseApplication extends Application implements Application.ActivityLifecycleCallbacks {
     private static BaseApplication instance;
     private Stack<Activity> allActivities;
-    public static String HOST="";
 
     @Override
     public void onCreate() {

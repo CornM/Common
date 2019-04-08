@@ -3,6 +3,8 @@ package com.zswl.common.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.zswl.common.api.Constant;
+
 
 /**
  * Created by Administrator on 2018/6/12 0012.
@@ -38,6 +40,10 @@ public class SpUtil {
 
     public static int getInt(String key) {
         return preference.getInt(key, -1);
+    }
+
+    public static String getUserId(){
+        return preference.getString(Constant.USERID,"");
     }
 
 

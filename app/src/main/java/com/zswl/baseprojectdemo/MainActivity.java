@@ -1,13 +1,10 @@
 package com.zswl.baseprojectdemo;
 
-import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zswl.common.base.BasePhotoActivity;
 import com.zswl.common.base.BasePhotoListActivity;
 import com.zswl.common.base.ImageBean;
-import com.zswl.common.base.ViewHolder;
 import com.zswl.common.util.GlideUtil;
 import com.zswl.common.widget.SpinnerPopWindow;
 

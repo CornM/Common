@@ -5,9 +5,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.zswl.common.R;
+import com.zswl.common.api.ApiService;
 import com.zswl.common.base.BaseApplication;
 import com.zswl.common.base.GlideApp;
-
 
 import java.io.File;
 
@@ -27,7 +27,7 @@ public class GlideUtil {
         if (url.startsWith("/")) {
             url = url.replaceFirst("/", "");
         }
-        GlideApp.with(BaseApplication.getAppInstance()).load(BaseApplication.HOST + url)
+        GlideApp.with(BaseApplication.getAppInstance()).load(ApiService.HOST + url)
                 .placeholder(R.drawable.ic_place_holder)
                 .error(R.drawable.ic_place_holder)
                 .into(target);
@@ -50,7 +50,7 @@ public class GlideUtil {
         GlideApp.with(BaseApplication.getAppInstance()).asBitmap()
                 .error(R.drawable.ic_place_holder)
                 .transform(new CircleCrop())
-                .load(BaseApplication.HOST + url).into(target);
+                .load(ApiService.HOST + url).into(target);
     }
 
 }

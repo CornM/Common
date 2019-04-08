@@ -1,5 +1,7 @@
 package com.zswl.common.api;
 
+import com.zswl.common.util.SpUtil;
+
 import java.io.IOException;
 
 import okhttp3.HttpUrl;
@@ -33,9 +35,9 @@ public class UserIdInterceptor implements Interceptor {
 //            }
 
 
-        HttpUrl newUrl = oldRequest.url().newBuilder().build();
-//                    .addQueryParameter(Constant.USERID,
-//                            SpUtil.getUserId()).build();
+        HttpUrl newUrl = oldRequest.url().newBuilder()
+                .addQueryParameter(Constant.USERID,
+                        SpUtil.getUserId()).build();
         oldRequest = oldRequest.newBuilder().url(newUrl).build();
 
 //        }
