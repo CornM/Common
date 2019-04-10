@@ -33,8 +33,9 @@ public class MyActionBar extends LinearLayout {
     private ImageView rightIv;
     private View actionBar;
     private int bgColor;
+    private int bgDrawable;
     private int titleFontColor;
-    private View rootView;
+    protected View rootView;
     public MyActionBar(Context context) {
         this(context, null);
 //        init(context);
@@ -59,6 +60,7 @@ public class MyActionBar extends LinearLayout {
         rightStr = array.getString(R.styleable.MyActionBar_right_text);
         visibilityIvRight = array.getBoolean(R.styleable.MyActionBar_visibility_iv_right, false);
         rightIvBg = array.getResourceId(R.styleable.MyActionBar_background_iv_rigt, 0);
+        bgDrawable = array.getResourceId(R.styleable.MyActionBar_background_drawable, 0);
         bgColor = array.getColor(R.styleable.MyActionBar_background_color, context.getResources().getColor(R.color.color_white));
         titleFontColor = array.getColor(R.styleable.MyActionBar_title_font_color, context.getResources().getColor(android.R.color.background_dark));
         rightTv.setText(rightStr);
@@ -73,6 +75,8 @@ public class MyActionBar extends LinearLayout {
         }
         if (bgColor != 0)
             rootView.setBackgroundColor(bgColor);
+        if (bgDrawable != 0)
+            rootView.setBackgroundResource(bgDrawable);
         if (titleFontColor != 0)
             title.setTextColor(titleFontColor);
         if (visibilityIvLeft) {
