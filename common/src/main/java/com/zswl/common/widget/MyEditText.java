@@ -33,7 +33,6 @@ public class MyEditText extends EditText {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         //让RadioButton的图标可调大小 属性：
         Drawable drawableLeft = this.getCompoundDrawables()[0];//获得文字左侧图片
         Drawable drawableTop = this.getCompoundDrawables()[1];//获得文字顶部图片
@@ -55,6 +54,7 @@ public class MyEditText extends EditText {
             drawableBottom.setBounds(0, 0, (int) mImg_width, (int) mImg_height);
             this.setCompoundDrawables(null, null, null, drawableBottom);
         }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
     }
 
