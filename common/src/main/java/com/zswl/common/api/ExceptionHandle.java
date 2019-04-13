@@ -71,8 +71,11 @@ public class ExceptionHandle {
             ex.message = "连接超时";
             return ex;
         } else {
+            //自定义异常（即code不等于1的情况）
             ex = new ResponeThrowable(e, ERROR.UNKNOWN);
-            ex.message =e.getMessage();
+            String[] mc = e.getMessage().split(";");
+            ex.message = mc[0];
+            ex.code = Integer.parseInt(mc[1]);
             return ex;
         }
     }
@@ -81,7 +84,7 @@ public class ExceptionHandle {
     /**
      * 约定异常
      */
-   public class ERROR {
+    public class ERROR {
         /**
          * 未知错误
          */

@@ -16,7 +16,7 @@ public class HandleFuc<T> implements Function<HttpResult<T>, T> {
     public T apply(HttpResult<T> response) throws Exception {
 
         if (!response.isOk()) {
-            throw new RuntimeException(response.getCode() + "" + response.getMsg() != null ? response.getMsg() : "");
+            throw new RuntimeException(response.getMsg() + ";" + response.getCode());
         }
 
         return response.getData();
