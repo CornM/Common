@@ -37,7 +37,7 @@ public class MyRadioButton extends RadioButton {
         Drawable drawableLeft = this.getCompoundDrawables()[0];//获得文字左侧图片
         Drawable drawableTop = this.getCompoundDrawables()[1];//获得文字顶部图片
         Drawable drawableRight = this.getCompoundDrawables()[2];//获得文字右侧图片
-//        Drawable drawableBottom = this.getCompoundDrawables()[3];//获得文字底部图片
+        Drawable drawableBottom = this.getCompoundDrawables()[3];//获得文字底部图片
         if (drawableLeft != null) {
             drawableLeft.setBounds(0, 0, (int) mImg_width, (int) mImg_height);
             this.setCompoundDrawables(drawableLeft, null, null, null);
@@ -50,10 +50,10 @@ public class MyRadioButton extends RadioButton {
             drawableTop.setBounds(0, 0, (int) mImg_width, (int) mImg_height);
             this.setCompoundDrawables(null, drawableTop, null, null);
         }
-//        if (drawableBottom != null) {
-//            drawableBottom.setBounds(0, 0, (int) mImg_width, (int) mImg_height);
-//            this.setCompoundDrawables(null, null, null, drawableBottom);
-//        }
+        if (drawableBottom != null) {
+            drawableBottom.setBounds(0, 0, (int) mImg_width, (int) mImg_height);
+            this.setCompoundDrawables(null, null, null, drawableBottom);
+        }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
     }

@@ -37,7 +37,6 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
         recyclerView = findViewById(R.id.rv);
         refreshLayout = findViewById(R.id.refreshLayout);
         initAdapter();
-        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(getLayoutManager());
         SinaRefreshView sinaRefreshView = new SinaRefreshView(context);
         refreshLayout.setHeaderView(sinaRefreshView);
@@ -90,7 +89,7 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
     /**
      * 初始化适配器
      */
-    private void initAdapter() {
+    protected void initAdapter() {
         Type type = getClass().getGenericSuperclass();
         Class<A> clazz = (Class<A>) ((ParameterizedType) type).getActualTypeArguments()[1];
         try {
@@ -105,7 +104,7 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-
+        setAdapterWrapper();
 
     }
 
@@ -116,6 +115,13 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
      */
     protected abstract int getItemLayout();
 
+    /**
+     * 设置包装adapter适配器
+     */
+    public void setAdapterWrapper() {
+        recyclerView.setAdapter(adapter);
+
+    }
 
     /**
      * 获取列表数据
@@ -123,7 +129,7 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
      * @param page
      */
     protected void getListData(int page) {
-        Observable observable=getApi(page);
+        Observable observable = getApi(page);
         if (observable == null) {
             return;
         }

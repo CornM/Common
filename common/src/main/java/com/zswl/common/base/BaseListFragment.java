@@ -36,7 +36,6 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
         recyclerView = view.findViewById(R.id.rv);
         refreshLayout = view.findViewById(R.id.refreshLayout);
         initAdapter();
-        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(getLayoutManager());
         SinaRefreshView sinaRefreshView = new SinaRefreshView(context);
         refreshLayout.setHeaderView(sinaRefreshView);
@@ -78,7 +77,7 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
     /**
      * 初始化适配器
      */
-    private void initAdapter() {
+    protected void initAdapter() {
         Type type = getClass().getGenericSuperclass();
         Class<A> clazz = (Class<A>) ((ParameterizedType) type).getActualTypeArguments()[1];
         try {
@@ -95,7 +94,7 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
         } catch (java.lang.InstantiationException e) {
             e.printStackTrace();
         }
-
+        setAdapterWrapper();
 
     }
 
@@ -115,6 +114,14 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
      * 数据刷新或者加载完之后调用此方法
      */
     public void finishLoadData() {
+
+    }
+
+    /**
+     * 设置包装adapter适配器
+     */
+    public void setAdapterWrapper() {
+        recyclerView.setAdapter(adapter);
 
     }
 
