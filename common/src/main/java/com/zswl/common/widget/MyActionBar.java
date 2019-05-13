@@ -32,9 +32,10 @@ public class MyActionBar extends LinearLayout {
     private ImageView leftIv;
     private ImageView rightIv;
     private View actionBar;
-    private int bgColor;
+//    private int bgColor;
     private int bgDrawable;
     private int titleFontColor;
+    private int rightFontColor;
     protected View rootView;
     public MyActionBar(Context context) {
         this(context, null);
@@ -61,24 +62,28 @@ public class MyActionBar extends LinearLayout {
         visibilityIvRight = array.getBoolean(R.styleable.MyActionBar_visibility_iv_right, false);
         rightIvBg = array.getResourceId(R.styleable.MyActionBar_background_iv_rigt, 0);
         bgDrawable = array.getResourceId(R.styleable.MyActionBar_background_drawable, 0);
-        bgColor = array.getColor(R.styleable.MyActionBar_background_color, context.getResources().getColor(R.color.color_white));
-        titleFontColor = array.getColor(R.styleable.MyActionBar_title_font_color, context.getResources().getColor(android.R.color.background_dark));
+//        bgColor = array.getColor(R.styleable.MyActionBar_background_color, context.getResources().getColor(R.color.color_white));
+        titleFontColor = array.getColor(R.styleable.MyActionBar_title_font_color, context.getResources().getColor(R.color.color_title_actionbar));
+        rightFontColor = array.getColor(R.styleable.MyActionBar_right_font_color, context.getResources().getColor(R.color.color_right_actionbar));
         rightTv.setText(rightStr);
         title.setText(titleStr);
-        if (leftIvBg != 0)
-//            leftIv.setBackgroundResource(leftIvBg);
+        if (leftIvBg != 0){
             leftIv.setImageDrawable(context.getResources().getDrawable(leftIvBg));
-        if (rightIvBg != 0)
+        }
+        if (rightIvBg != 0){
             rightIv.setImageDrawable(context.getResources().getDrawable(rightIvBg));
+        }
         if (titleColor != 0) {
             title.setTextColor(titleColor);
         }
-        if (bgColor != 0)
-            rootView.setBackgroundColor(bgColor);
+//        if (bgColor != 0)
+//            rootView.setBackgroundColor(bgColor);
         if (bgDrawable != 0)
             rootView.setBackgroundResource(bgDrawable);
         if (titleFontColor != 0)
             title.setTextColor(titleFontColor);
+        if (titleFontColor != 0)
+            rightTv.setTextColor(rightFontColor);
         if (visibilityIvLeft) {
             leftIv.setVisibility(VISIBLE);
         } else {

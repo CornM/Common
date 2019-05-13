@@ -6,8 +6,11 @@ import android.support.v7.widget.RecyclerView;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.footer.BallPulseView;
 import com.lcodecore.tkrefreshlayout.footer.LoadingView;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
+import com.lcodecore.tkrefreshlayout.header.bezierlayout.BezierLayout;
+import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 import com.zswl.common.R;
 import com.zswl.common.api.ExceptionHandle;
 import com.zswl.common.util.RxUtil;
@@ -40,7 +43,7 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
         recyclerView.setLayoutManager(getLayoutManager());
         SinaRefreshView sinaRefreshView = new SinaRefreshView(context);
         refreshLayout.setHeaderView(sinaRefreshView);
-        refreshLayout.setBottomView(new LoadingView(context));
+        refreshLayout.setBottomView(new BallPulseView(context));
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
@@ -62,7 +65,8 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
                     adapter.addData(result);
                     refreshLayout.finishLoadmore();
                 } else {
-                    adapter.refreshData(result);
+                    adapter.notifyDataChanged(result);
+//                    adapter.refreshData(result);
                     refreshLayout.finishRefreshing();
                 }
                 finishLoadData();
@@ -120,7 +124,6 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
      */
     public void setAdapterWrapper() {
         recyclerView.setAdapter(adapter);
-
     }
 
     /**

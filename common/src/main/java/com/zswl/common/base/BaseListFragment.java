@@ -61,7 +61,8 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
                     adapter.addData(result);
                     refreshLayout.finishLoadmore();
                 } else {
-                    adapter.refreshData(result);
+//                    adapter.refreshData(result);
+                    adapter.notifyDataChanged(result);
                     refreshLayout.finishRefreshing();
                 }
                 finishLoadData();

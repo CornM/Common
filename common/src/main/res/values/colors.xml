@@ -14,4 +14,6 @@
     <color name="color_999">#999999</color>
     <color name="color_ccc">#cccccc</color>
     <color name="colorMain">#D83232</color>
+    <color name="color_title_actionbar">#D83232</color>
+    <color name="color_right_actionbar">#D83232</color>
 </resources>

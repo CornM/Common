@@ -10,6 +10,7 @@
         <attr name="background_iv_left" format="reference"></attr>
         <attr name="background_iv_rigt" format="reference"></attr>
         <attr name="title_font_color" format="color|reference"></attr>
+        <attr name="right_font_color" format="color|reference"></attr>
         <attr name="background_color" format="color|reference"></attr>
         <attr name="background_drawable" format="reference"></attr>
     </declare-styleable>

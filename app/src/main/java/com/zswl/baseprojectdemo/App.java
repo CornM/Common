@@ -9,8 +9,9 @@ public class App extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        ApiServiceOptions options = new ApiServiceOptions("he/http://192.168.2.180:8080/aixunc");
-        options.setInterceptors(new UserIdInterceptor());
+
+        ApiServiceOptions options = new ApiServiceOptions("http://47.93.16.37:80/delivery/");
+//        options.setInterceptors(new UserIdInterceptor());
         ApiService.init(this, options);
     }
 }

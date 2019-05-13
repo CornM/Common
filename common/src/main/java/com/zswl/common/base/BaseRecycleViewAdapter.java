@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,9 +23,15 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<Vie
 
     public BaseRecycleViewAdapter(Context context, int layoutId) {
         this.context = context;
-        this.data = new ArrayList<>();
         this.layoutId = layoutId;
+        this.data = new ArrayList<>();
         inflater = LayoutInflater.from(context);
+    }
+
+    public BaseRecycleViewAdapter(Context context, List<T> data, int layoutId) {
+        this(context, layoutId);
+        this.data.addAll(data);
+
     }
 
 
@@ -47,7 +54,20 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<Vie
         return data == null ? 0 : data.size();
     }
 
+    /**
+     * 获取数据集合
+     *
+     * @return
+     */
+    public List<T> getDataList() {
+        return data;
+    }
 
+    public void notifyDataChanged(List<T> result) {
+        data.clear();
+        data.addAll(result);
+        super.notifyDataSetChanged();
+    }
 
 
     public void refreshData(List<T> result) {

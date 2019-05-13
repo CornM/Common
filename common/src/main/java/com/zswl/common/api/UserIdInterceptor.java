@@ -1,5 +1,7 @@
 package com.zswl.common.api;
 
+import android.text.TextUtils;
+
 import com.zswl.common.util.SpUtil;
 
 import java.io.IOException;
@@ -19,7 +21,7 @@ public class UserIdInterceptor implements Interceptor {
         Request oldRequest = chain.request();
 
 
-//        if (!TextUtils.isEmpty(SpUtil.getUserId())) {
+        if (!TextUtils.isEmpty(SpUtil.getUserId())) {
 //            if (oldRequest.body() instanceof FormBody) {
 //
 //
@@ -40,7 +42,7 @@ public class UserIdInterceptor implements Interceptor {
                         SpUtil.getUserId()).build();
         oldRequest = oldRequest.newBuilder().url(newUrl).build();
 
-//        }
+        }
 
         return chain.proceed(oldRequest);
     }

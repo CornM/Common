@@ -29,13 +29,13 @@ public abstract class BaseWebViewActivity extends BackActivity {
         tvTitle = findViewById(R.id.tv_action_bar_title);
         tvRight = findViewById(R.id.tv_action_bar_right_text);
         actionBar = findViewById(R.id.mab);
-        String title=getActionBarTitle();
+        String title = getActionBarTitle();
         if (!TextUtils.isEmpty(title))
             tvTitle.setText(title);
-        String url=getUrl();
+        String url = getUrl();
         myWebView.loadUrl(url);
         LogUtil.d(TAG, url);
-        BaseWebJs baseWebJs=getWebJs();
+        BaseWebJs baseWebJs = getWebJs();
         if (baseWebJs != null) {
             myWebView.addJavascriptInterface(baseWebJs, "android");
         }
@@ -55,7 +55,10 @@ public abstract class BaseWebViewActivity extends BackActivity {
      *
      * @return
      */
-    public abstract String getActionBarTitle();
+    public String getActionBarTitle() {
+        return null;
+    }
+
 
 
     /**

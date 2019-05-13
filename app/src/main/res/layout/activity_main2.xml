@@ -12,5 +12,10 @@
         android:layout_height="wrap_content"
         app:title="第二个页面" />
 
-    <include layout="@layout/refresh_load_view" />
+    <!--<include layout="@layout/refresh_load_view" />-->
+    <fragment
+        android:id="@+id/f_test"
+        android:name="com.zswl.baseprojectdemo.TestFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
