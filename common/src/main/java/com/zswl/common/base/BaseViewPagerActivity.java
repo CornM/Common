@@ -59,10 +59,8 @@ public abstract class BaseViewPagerActivity extends BackActivity {
      */
     public abstract String[] getTitles();
 
-    protected ViewPagerAdapter getViewPagerAdapter() {
-        return null;
-    }
+    protected abstract ViewPagerAdapter getViewPagerAdapter();
 
-    public abstract void getFragments(List<Class> fragments);
+    protected  void getFragments(List<Class> fragments){};
 
 }

@@ -10,7 +10,7 @@ public class App extends BaseApplication {
     public void onCreate() {
         super.onCreate();
 
-        ApiServiceOptions options = new ApiServiceOptions("http://47.93.16.37:80/delivery/");
+        ApiServiceOptions options = new ApiServiceOptions("http://192.168.2.167:8080/wechatshop/");
 //        options.setInterceptors(new UserIdInterceptor());
         ApiService.init(this, options);
     }

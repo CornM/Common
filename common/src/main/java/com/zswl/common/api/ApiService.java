@@ -30,8 +30,8 @@ public class ApiService {
         retrofit = new Retrofit.Builder().baseUrl(HOST)
                 .client(okHttpClientBuilder.build())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
     }
