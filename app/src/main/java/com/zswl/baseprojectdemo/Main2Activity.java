@@ -1,41 +1,63 @@
 package com.zswl.baseprojectdemo;
 
-import android.view.View;
-
-import com.zswl.common.api.ApiService;
-import com.zswl.common.base.BackActivity;
-import com.zswl.common.base.BaseHeaderAndFooterListActivity;
 import com.zswl.common.base.BaseViewPagerActivity;
-import com.zswl.common.base.HttpResult;
 import com.zswl.common.base.ViewPagerAdapter;
 
-import java.util.List;
-
-import io.reactivex.Observable;
-
 public class Main2Activity extends BaseViewPagerActivity {
+//    @BindView(R.id.tb)
+//    DrawableTabLayout tabLayout;
+//    @BindView(R.id.vp)
+//    ViewPager viewPager;
+    private String[] titles = {"度发货地", "地方", "发放", "发发达", "阿凡达", "的的大纲", "发的个", "P", "A"};
 
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_main2;
-    }
+//    @Override
+//    protected int getLayoutId() {
+//        return R.layout.activity_main2;
+//    }
+//
+//    @Override
+//    protected void init() {
+//        super.init();
+//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), TestFragment.class, titles);
+//
+//        viewPager.setAdapter(adapter);
+//
+//
+//        tabLayout.setWithViewPager(viewPager);
+//        tabLayout.setIndicatorImageRes(R.drawable.bg_actionbar);
+//        tabLayout.setIndicatorMarginBottom(10);
+//    }
 
     @Override
     public String getTitleName() {
-        return null;
+        return "dffdfd";
     }
 
     @Override
     public String[] getTitles() {
-        return new String[0];
+        return titles;
     }
 
     @Override
     protected ViewPagerAdapter getViewPagerAdapter() {
-        return null;
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), TestFragment.class);
+        return adapter;
     }
 
+    //    @Override
+//    public String getTitleName() {
+//        return null;
+//    }
+//
+//    @Override
+//    public String[] getTitles() {
+//        return new String[0];
+//    }
+//
+//    @Override
+//    protected ViewPagerAdapter getViewPagerAdapter() {
+//        return null;
+//    }
 
 
 //

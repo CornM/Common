@@ -13,9 +13,20 @@
         app:title="第二个页面" />
 
     <!--<include layout="@layout/refresh_load_view" />-->
-    <fragment
-        android:id="@+id/f_test"
-        android:name="com.zswl.baseprojectdemo.TestFragment"
+    <!--<fragment-->
+    <!--android:id="@+id/f_test"-->
+    <!--android:name="com.zswl.baseprojectdemo.TestFragment"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" />-->
+
+    <com.zswl.common.widget.tablayout.DrawableTabLayout
+        android:id="@+id/tb"
+        android:layout_width="match_parent"
+
+        android:layout_height="60dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

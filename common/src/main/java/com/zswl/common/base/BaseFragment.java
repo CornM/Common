@@ -28,7 +28,7 @@ public abstract class BaseFragment extends Fragment {
 
     //Fragment当前是否可见的状态
     protected View mRootView;
-    protected boolean isVisible=true;    //判断Fragment是否可见
+    protected boolean isVisible = true;    //判断Fragment是否可见
     private boolean isPrepared;     //判断控件是否已经做好绑定工作 防止在initData()时报空指针错误
     protected boolean isFirst = true;    //判断Fragment是否是第一次加载
 
@@ -46,6 +46,11 @@ public abstract class BaseFragment extends Fragment {
         lazyLoad();
     }
 
+    /**
+     * 此法只在 ViewpagerAdapter中起作用
+     *
+     * @param isVisibleToUser
+     */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -56,6 +61,18 @@ public abstract class BaseFragment extends Fragment {
             isVisible = false;
             onInVisible();   //Fragment不可见是调用
         }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        isVisible = !hidden;
+        if (!hidden) {
+            onVisible();    //Fragment可见时调用的方法
+        } else {
+            onInVisible();   //Fragment不可见是调用
+        }
+
     }
 
     protected void onInVisible() {

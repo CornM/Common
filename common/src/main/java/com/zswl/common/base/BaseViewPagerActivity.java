@@ -1,11 +1,21 @@
 package com.zswl.common.base;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
 import com.zswl.common.R;
+import com.zswl.common.util.LogUtil;
 import com.zswl.common.widget.tablayout.TabLayout;
 
+import java.nio.file.FileStore;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,15 +45,25 @@ public abstract class BaseViewPagerActivity extends BackActivity {
             adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, getTitles());
         } else {
             adapter = getViewPagerAdapter();
+            adapter.setTitles(getTitles());
         }
         if (adapter.getCount() > 4) {
             tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         }
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setNeedSwitchAnimation(true);
-        tabLayout.setIndicatorWidthWrapContent(true);
+        tabLayout.setNeedSwitchAnimation(false);
+        tabLayout.setIndicatorWidthWrapContent(false);
+        tabLayout.setScrollableTabRadius(10);
+        tabLayout.setSelectedTabIndicatorWidth(60);
+//        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.ic_add_img);
+
+//        tabLayout.setmIndicatorBitmap(bitmap);
     }
+
+
+
+
 
     /**
      * 获取actionbar 名字
@@ -61,6 +81,9 @@ public abstract class BaseViewPagerActivity extends BackActivity {
 
     protected abstract ViewPagerAdapter getViewPagerAdapter();
 
-    protected  void getFragments(List<Class> fragments){};
+    protected void getFragments(List<Class> fragments) {
+    }
+
+    ;
 
 }

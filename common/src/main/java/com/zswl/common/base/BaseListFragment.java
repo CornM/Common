@@ -52,6 +52,12 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
                 page = page + limit;
                 getListData(page);
             }
+
+            @Override
+            public void onFinishRefresh() {
+                super.onFinishRefresh();
+                finishLoadData();
+            }
         });
 
         observer = new BaseObserver<List<B>>(context, false) {
@@ -65,7 +71,7 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
                     adapter.notifyDataChanged(result);
                     refreshLayout.finishRefreshing();
                 }
-                finishLoadData();
+
 
             }
         };

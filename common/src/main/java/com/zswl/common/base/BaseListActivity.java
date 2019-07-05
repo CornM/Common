@@ -43,7 +43,7 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
         recyclerView.setLayoutManager(getLayoutManager());
         SinaRefreshView sinaRefreshView = new SinaRefreshView(context);
         refreshLayout.setHeaderView(sinaRefreshView);
-        refreshLayout.setBottomView(new BallPulseView(context));
+        refreshLayout.setBottomView(new LoadingView(context));
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
@@ -55,6 +55,13 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
                 isRefresh = false;
                 page = page + limit;
                 getListData(page);
+            }
+
+            @Override
+            public void onFinishRefresh() {
+                super.onFinishRefresh();
+                finishLoadData();
+
             }
         });
 
@@ -69,7 +76,6 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
 //                    adapter.refreshData(result);
                     refreshLayout.finishRefreshing();
                 }
-                finishLoadData();
 
             }
 

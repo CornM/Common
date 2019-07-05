@@ -5,6 +5,8 @@ package com.zswl.common.widget;
 
 import android.os.Environment;
 
+import com.zswl.common.base.BaseApplication;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -89,6 +91,7 @@ public class FileUtil {
     }
 
     public static String getUploadImgPath() {
-        return getSDCardPath() + "Decorate" + File.separator + "upload" + File.separator;
+        String path=BaseApplication.getAppInstance().getPackageName().split("\\.")[2];
+        return getSDCardPath() + path + File.separator + "upload" + File.separator;
     }
 }

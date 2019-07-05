@@ -3,27 +3,33 @@ package com.zswl.common.base;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zswl.common.api.ExceptionHandle;
 import com.zswl.common.util.RxUtil;
 import com.zswl.common.util.ToastUtil;
+import com.zswl.common.widget.FileUtil;
 import com.zswl.common.widget.ImageUtil;
 import com.zswl.common.widget.SelectPhotoDialog;
 
 
+import java.io.File;
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 import static com.zswl.common.widget.SelectPhotoDialog.REQUEST_CODE_CAMERA;
 
 public abstract class BasePhotoActivity extends BackActivity {
     //    private String takePhotoPath;
-    private Disposable disposable;
+//    private Disposable disposable;
 
     /**
      * 图片路径
@@ -32,30 +38,59 @@ public abstract class BasePhotoActivity extends BackActivity {
      */
     private void dealWithZipImg(final String path) {
 
-        Observable.just(ImageUtil.getimage(path)).compose(RxUtil.io_main_nolife())
-                .subscribe(new Observer<String>() {
+        Luban.with(this)
+                .load(path)
+                .ignoreBy(100)
+                .filter(new CompressionPredicate() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-                        disposable = d;
+                    public boolean apply(String path) {
+                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                    }
+                })
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
                     }
 
                     @Override
-                    public void onNext(String result) {
-                        imagePath(path, result);
-
+                    public void onSuccess(File file) {
+                        // TODO 压缩成功后调用，返回压缩后的图片文件
+                        imagePath(path, file.getPath());
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        // TODO 当压缩过程出现问题时调用
                     }
+                }).launch();
 
-                    @Override
-                    public void onComplete() {
 
-                    }
 
-                });
+//        Observable.just(ImageUtil.getimage(path)).compose(RxUtil.io_main_nolife())
+//                .subscribe(new Observer<String>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//                        disposable = d;
+//                    }
+//
+//                    @Override
+//                    public void onNext(String result) {
+//                        imagePath(path, result);
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//
+//                });
     }
 
     /**
@@ -121,10 +156,10 @@ public abstract class BasePhotoActivity extends BackActivity {
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (disposable != null)
-            disposable.dispose();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        if (disposable != null)
+//            disposable.dispose();
+//    }
 }

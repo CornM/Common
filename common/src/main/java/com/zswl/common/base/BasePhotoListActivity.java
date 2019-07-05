@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -13,6 +14,7 @@ import com.zswl.common.util.ToastUtil;
 import com.zswl.common.widget.ImageUtil;
 import com.zswl.common.widget.SelectPhotoDialog;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,13 +24,16 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public abstract class BasePhotoListActivity extends BackActivity implements ImageAdapter.selectPickListener {
     protected RecyclerView imgRv;
     protected Map<String, String> imgs;//存放要上传图片路径
     private List<ImageBean> dataImg;
     protected ImageAdapter adapter;
-    private Disposable disposable;
+//    private Disposable disposable;
     protected int maxsize = 9;
 
     @Override
@@ -55,6 +60,7 @@ public abstract class BasePhotoListActivity extends BackActivity implements Imag
 
     /**
      * 此方法设置
+     *
      * @param bean
      */
     protected void setAddImg(ImageBean bean) {
@@ -112,8 +118,41 @@ public abstract class BasePhotoListActivity extends BackActivity implements Imag
 // capture new image
 //                updateHeadrImg(takePhotoPath);
             if (resultPaths != null && resultPaths.size() > 0) {
-                for (String path : resultPaths) {
-                    updateHeadrImg(path);
+//                for (String path : resultPaths) {
+//                    updateHeadrImg(path);
+//                }
+                if (imgs.size() < maxsize) {
+                    Luban.with(this)
+                            .load(resultPaths)
+                            .ignoreBy(100)
+                            .filter(new CompressionPredicate() {
+                                @Override
+                                public boolean apply(String path) {
+                                    return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                                }
+                            })
+                            .setCompressListener(new OnCompressListener() {
+                                @Override
+                                public void onStart() {
+                                    // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                                }
+
+                                @Override
+                                public void onSuccess(File file) {
+                                    // TODO 压缩成功后调用，返回压缩后的图片文件
+                                    String path = file.getAbsolutePath();
+                                    imgs.put("img" + imgs.size(), path);
+                                    dataImg.add(0, new ImageBean(path));
+                                    adapter.notifyDataChanged(dataImg);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    // TODO 当压缩过程出现问题时调用
+                                }
+                            }).launch();
+
+
                 }
             }
 //                    updateHeadrImg(resultPaths.get(0));
@@ -123,42 +162,42 @@ public abstract class BasePhotoListActivity extends BackActivity implements Imag
     }
 
 
-    public void updateHeadrImg(final String path) {
-        if (imgs.size() < maxsize) {
-            dataImg.add(0, new ImageBean(path));
-            adapter.refreshData(dataImg);
+//    public void updateHeadrImg(final String path) {
+//        if (imgs.size() < maxsize) {
+//            dataImg.add(0, new ImageBean(path));
+//            adapter.refreshData(dataImg);
+//
+//            //进行压缩
+//            Observable.just(ImageUtil.getimage(path))
+//                    .subscribeOn(Schedulers.io()).subscribe(new Observer<String>() {
+//                @Override
+//                public void onSubscribe(Disposable d) {
+//                    disposable = d;
+//                }
+//
+//                @Override
+//                public void onNext(String s) {
+//                    imgs.put("img" + imgs.size(), s);
+//                }
+//
+//                @Override
+//                public void onError(Throwable e) {
+//
+//                }
+//
+//                @Override
+//                public void onComplete() {
+//
+//                }
+//            });
+//
+//        }
+//    }
 
-            //进行压缩
-            Observable.just(ImageUtil.getimage(path))
-                    .subscribeOn(Schedulers.io()).subscribe(new Observer<String>() {
-                @Override
-                public void onSubscribe(Disposable d) {
-                    disposable = d;
-                }
-
-                @Override
-                public void onNext(String s) {
-                    imgs.put("img" + imgs.size(), s);
-                }
-
-                @Override
-                public void onError(Throwable e) {
-
-                }
-
-                @Override
-                public void onComplete() {
-
-                }
-            });
-
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (disposable != null)
-            disposable.dispose();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        if (disposable != null)
+//            disposable.dispose();
+//    }
 }

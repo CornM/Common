@@ -30,6 +30,15 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         this.titles = titles;
     }
 
+    public ViewPagerAdapter(FragmentManager fm, Class singleClass) {
+        super(fm);
+        this.singleClass = singleClass;
+    }
+
+    public void setTitles(String[] titles) {
+        this.titles = titles;
+    }
+
     public void setDealFragment(DealFragment dealFragment) {
         this.dealFragment = dealFragment;
     }
