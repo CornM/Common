@@ -43,7 +43,7 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
         refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-              refreshList();
+                refreshList();
             }
 
             @Override
@@ -67,8 +67,8 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
                     adapter.addData(result);
                     refreshLayout.finishLoadmore();
                 } else {
-//                    adapter.refreshData(result);
-                    adapter.notifyDataChanged(result);
+                    adapter.refreshData(result);
+//                    adapter.notifyDataChanged(result);
                     refreshLayout.finishRefreshing();
                 }
 
@@ -129,6 +129,7 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
      */
     public void setAdapterWrapper() {
         recyclerView.setAdapter(adapter);
+        adapter.setRecyclerView(recyclerView);
 
     }
 

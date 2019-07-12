@@ -1,6 +1,7 @@
 package com.zswl.common.base;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.util.SparseArrayCompat;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,15 +57,22 @@ public abstract class BaseHeaderAdapter<T extends BaseBean> extends BaseRecycleV
         return getHeadersCount() + getFootersCount() + getRealItemCount();
     }
 
+
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    protected T getItemBean(int position) {
+        return super.getItemBean(position-getHeadersCount());
+    }
+
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {
         if (isHeaderViewPos(position)) {
             return;
         }
         if (isFooterViewPos(position)) {
             return;
         }
-        super.onBindViewHolder(holder, position - getHeadersCount());
+        super.onBindViewHolder(holder, position, payloads);
     }
 
     @Override
@@ -110,6 +118,15 @@ public abstract class BaseHeaderAdapter<T extends BaseBean> extends BaseRecycleV
 //            }
 //        });
 //    }
+
+
+    @Override
+    public void onClick(View v) {
+        if (itemClickListener != null) {
+            int position = mRecyclerView.getChildLayoutPosition(v)-getHeadersCount();
+            itemClickListener.onItemClick(v, position);
+        }
+    }
 
     private boolean isHeaderViewPos(int position) {
         return position < getHeadersCount();

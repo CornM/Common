@@ -130,6 +130,7 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
      */
     public void setAdapterWrapper() {
         recyclerView.setAdapter(adapter);
+        adapter.setRecyclerView(recyclerView);
     }
 
     /**

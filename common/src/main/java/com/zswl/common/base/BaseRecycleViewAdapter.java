@@ -2,30 +2,52 @@ package com.zswl.common.base;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.zswl.common.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import butterknife.OnClick;
+
 /**
  * Created by Administrator on 2018/4/16 0016.
  */
 
-public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
+public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<ViewHolder> implements View.OnClickListener {
     protected Context context;
     protected List<T> data;
     protected int layoutId;
     protected LayoutInflater inflater;
+    protected DiffCallBack callBack;
+    protected OnItemClickListener itemClickListener;
+    protected RecyclerView mRecyclerView;
 
     public BaseRecycleViewAdapter(Context context, int layoutId) {
         this.context = context;
         this.layoutId = layoutId;
         this.data = new ArrayList<>();
+        callBack = new DiffCallBack();
         inflater = LayoutInflater.from(context);
+    }
+
+    public void setRecyclerView(RecyclerView recyclerView) {
+        mRecyclerView = recyclerView;
+    }
+
+    public void setItemClickListener(OnItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
     public BaseRecycleViewAdapter(Context context, List<T> data, int layoutId) {
@@ -34,20 +56,85 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<Vie
 
     }
 
+    protected T getItemBean(int position) {
+        return data.get(position);
+    }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(layoutId, parent, false);
+        if (itemClickListener != null)
+            view.setOnClickListener(this);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        onBind(data.get(position), holder, position);
+        onBind(getItemBean(position), holder, position);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {
+
+        if (payloads.isEmpty()) {
+            T bean = getItemBean(position);
+            onBind(bean, holder, position);
+        } else {
+            T bean = getItemBean(position);
+            onBindWithPayloads(bean, holder, position, payloads);
+
+        }
+
     }
 
     public abstract void onBind(T t, ViewHolder holder, int position);
+
+    /**
+     * 局部刷新
+     *
+     * @param t
+     * @param holder
+     * @param position
+     * @param payloads
+     */
+    public void onBindWithPayloads(T t, ViewHolder holder, int position, List<Object> payloads) {
+
+    }
+
+    /**
+     * 判断是不是同一个Bean
+     *
+     * @param oldItem
+     * @param newItem
+     * @return
+     */
+    public boolean areItemTheSame(T oldItem, T newItem) {
+        return false;
+    }
+
+    /**
+     * 判断内容是否一样
+     *
+     * @param oldItem
+     * @param newItem
+     * @return
+     */
+    public boolean areContentTheSame(T oldItem, T newItem) {
+        return false;
+    }
+
+    /**
+     * 局部更新
+     *
+     * @param oldItem
+     * @param newItem
+     * @return
+     */
+    public Object getPayload(T oldItem, T newItem) {
+
+        return null;
+    }
 
     @Override
     public int getItemCount() {
@@ -63,19 +150,17 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<Vie
         return data;
     }
 
+
     public void notifyDataChanged(List<T> result) {
-        data.clear();
-        data.addAll(result);
-        super.notifyDataSetChanged();
+        callBack.setNewDataList(result);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(callBack, true);
+        data = result;
+        diffResult.dispatchUpdatesTo(this);
     }
 
 
     public void refreshData(List<T> result) {
-        int preSize = data.size();
-        data.clear();
-        notifyItemRangeRemoved(0, preSize);
-        data.addAll(result);
-        notifyItemRangeInserted(0, result.size());
+        notifyDataChanged(result);
     }
 
     public void addData(List<T> result) {
@@ -83,5 +168,54 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<Vie
         data.addAll(result);
         notifyItemRangeInserted(preSize, result.size());
     }
+
+    @Override
+    public void onClick(View v) {
+
+        int position = mRecyclerView.getChildLayoutPosition(v);
+        itemClickListener.onItemClick(v, position);
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
+
+
+    public class DiffCallBack extends DiffUtil.Callback {
+
+        private List<T> newDataList;
+
+        public void setNewDataList(List<T> newDataList) {
+            this.newDataList = newDataList;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return getItemCount();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return newDataList == null ? 0 : newDataList.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+
+            return areItemTheSame(data.get(oldItemPosition), data.get(newItemPosition));
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            return areContentTheSame(data.get(oldItemPosition), data.get(newItemPosition));
+        }
+
+        @Nullable
+        @Override
+        public Object getChangePayload(int oldItemPosition, int newItemPosition) {
+            return getPayload(data.get(oldItemPosition), data.get(newItemPosition));
+        }
+    }
+
 
 }

@@ -20,7 +20,7 @@ public interface Api {
 
 
     @FormUrlEncoded
-    @POST("apiindex/getShangjiaBuTypeId")
+    @POST("apicishan/allCiShanTuiJian")
     Observable<HttpResult<List<TestBean>>> getTestData(@Field("start") int start,
                                                        @Field("limit") int limit);
 

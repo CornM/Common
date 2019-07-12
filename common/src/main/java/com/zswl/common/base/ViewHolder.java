@@ -54,4 +54,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         GlideUtil.showWithRes(resourceId, imageView);
     }
 
+
+
 }

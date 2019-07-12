@@ -52,8 +52,8 @@ public class MainActivity extends BasePhotoListActivity {
 
     @OnClick(R.id.iv)
     public void clickImg() {
-//        startActivity(new Intent(context, Main3Activity.class));
-        changeHeaderImg();
+        startActivity(new Intent(context, Main2Activity.class));
+//        changeHeaderImg();
 //        List<String> list=new ArrayList<>();
 //        for (int i = 0; i < 12; i++) {
 //            list.add(i+"测试");
