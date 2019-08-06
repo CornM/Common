@@ -120,13 +120,6 @@ public abstract class BaseHeaderAdapter<T extends BaseBean> extends BaseRecycleV
 //    }
 
 
-    @Override
-    public void onClick(View v) {
-        if (itemClickListener != null) {
-            int position = mRecyclerView.getChildLayoutPosition(v)-getHeadersCount();
-            itemClickListener.onItemClick(v, position);
-        }
-    }
 
     private boolean isHeaderViewPos(int position) {
         return position < getHeadersCount();

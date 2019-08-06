@@ -72,7 +72,6 @@ public class SpinnerPopWindow<T> extends PopupWindow implements PopupWindow.OnDi
         };
         recyclerView.setAdapter(adapter);
         adapter.addData(list);
-
         setOnDismissListener(this);
 
         //获取自身的长宽高

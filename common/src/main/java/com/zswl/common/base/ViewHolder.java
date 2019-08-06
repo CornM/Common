@@ -54,6 +54,48 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         GlideUtil.showWithRes(resourceId, imageView);
     }
 
+    public void setChildViewClickListener(int id, final ViewClickListener listener) {
+        View view = getView(id);
+        if (!view.hasOnClickListeners()) {
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null)
+                        listener.OnChildClick(v, getLayoutPosition());
+                }
+            });
+        }
 
+    }
+
+    public void setItemClickListener(final ViewClickListener listener) {
+        if (!itemView.hasOnClickListeners()) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null)
+                        listener.OnItemClick(v, getLayoutPosition());
+                }
+            });
+        }
+    }
+
+    public interface ViewClickListener {
+        /**
+         * 子view点击事件回调
+         *
+         * @param view
+         * @param position
+         */
+        void OnChildClick(View view, int position);
+
+        /**
+         * item点击事假回调
+         *
+         * @param view
+         * @param position
+         */
+        void OnItemClick(View view, int position);
+    }
 
 }

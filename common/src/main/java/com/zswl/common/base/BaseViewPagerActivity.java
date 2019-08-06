@@ -62,9 +62,6 @@ public abstract class BaseViewPagerActivity extends BackActivity {
     }
 
 
-
-
-
     /**
      * 获取actionbar 名字
      *
@@ -84,6 +81,5 @@ public abstract class BaseViewPagerActivity extends BackActivity {
     protected void getFragments(List<Class> fragments) {
     }
 
-    ;
 
 }

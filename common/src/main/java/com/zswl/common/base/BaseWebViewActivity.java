@@ -1,7 +1,12 @@
 package com.zswl.common.base;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.text.TextUtils;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.zswl.common.R;
@@ -39,13 +44,18 @@ public abstract class BaseWebViewActivity extends BackActivity {
         if (baseWebJs != null) {
             myWebView.addJavascriptInterface(baseWebJs, "android");
         }
-//        myWebView.setWebViewClient(new WebViewClient() {
-//            @Override
-//            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-//                view.loadUrl(getUrl());
-//                return true;
-//            }
-//        });
+        myWebView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.startsWith("tel:")) {
+                    //Handle telephony Urls
+                    startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(url)));
+                }
+                return true;
+            }
+
+        });
 
 
     }

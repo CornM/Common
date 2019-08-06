@@ -24,7 +24,7 @@
             android:padding="10dp"
             android:text="拍照"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/font_title_size" />
+            android:textSize="16sp" />
 
         <View
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:padding="10dp"
             android:text="相册"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/font_title_size" />
+            android:textSize="16sp" />
     </android.support.v7.widget.LinearLayoutCompat>
 
     <TextView
@@ -52,7 +52,7 @@
         android:gravity="center"
         android:text="取消"
         android:textColor="@color/colorAccent"
-        android:textSize="@dimen/font_title_size" />
+        android:textSize="16sp" />
 
 
 </android.support.v7.widget.LinearLayoutCompat>

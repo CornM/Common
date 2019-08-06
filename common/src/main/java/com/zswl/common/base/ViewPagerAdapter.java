@@ -60,7 +60,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         try {
             fragment = (Fragment) clazz.newInstance();
             if (dealFragment!=null){
-                dealFragment.onDelal(fragment,position);
+                dealFragment.onDeal(fragment,position);
             }
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -86,6 +86,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
      * 处理生成Fragment
      */
     public interface DealFragment {
-        void onDelal(Fragment fragment, int position);
+        void onDeal(Fragment fragment, int position);
     }
 }

@@ -2,6 +2,7 @@ package com.zswl.common.base;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -72,7 +73,6 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
                     refreshLayout.finishRefreshing();
                 }
 
-
             }
         };
 
@@ -129,7 +129,6 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
      */
     public void setAdapterWrapper() {
         recyclerView.setAdapter(adapter);
-        adapter.setRecyclerView(recyclerView);
 
     }
 

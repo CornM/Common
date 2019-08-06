@@ -3,36 +3,27 @@ package com.zswl.common.base;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zswl.common.util.LogUtil;
+import com.zswl.common.util.ToastUtil;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2018/4/16 0016.
  */
 
-public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<ViewHolder> implements View.OnClickListener {
+public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<ViewHolder>  {
     protected Context context;
     protected List<T> data;
     protected int layoutId;
     protected LayoutInflater inflater;
     protected DiffCallBack callBack;
-    protected OnItemClickListener itemClickListener;
-    protected RecyclerView mRecyclerView;
 
     public BaseRecycleViewAdapter(Context context, int layoutId) {
         this.context = context;
@@ -42,13 +33,6 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<Vie
         inflater = LayoutInflater.from(context);
     }
 
-    public void setRecyclerView(RecyclerView recyclerView) {
-        mRecyclerView = recyclerView;
-    }
-
-    public void setItemClickListener(OnItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
-    }
 
     public BaseRecycleViewAdapter(Context context, List<T> data, int layoutId) {
         this(context, layoutId);
@@ -64,9 +48,9 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<Vie
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(layoutId, parent, false);
-        if (itemClickListener != null)
-            view.setOnClickListener(this);
-        return new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view);
+        setViewClickListener(holder);
+        return holder;
     }
 
     @Override
@@ -74,9 +58,9 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<Vie
         onBind(getItemBean(position), holder, position);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {
-
         if (payloads.isEmpty()) {
             T bean = getItemBean(position);
             onBind(bean, holder, position);
@@ -153,7 +137,7 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<Vie
 
     public void notifyDataChanged(List<T> result) {
         callBack.setNewDataList(result);
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(callBack, true);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(callBack, false);
         data = result;
         diffResult.dispatchUpdatesTo(this);
     }
@@ -169,17 +153,15 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<Vie
         notifyItemRangeInserted(preSize, result.size());
     }
 
-    @Override
-    public void onClick(View v) {
 
-        int position = mRecyclerView.getChildLayoutPosition(v);
-        itemClickListener.onItemClick(v, position);
+    /**
+     * 此方法中创建View点击事件
+     *
+     * @param holder
+     */
+    protected void setViewClickListener(ViewHolder holder) {
+
     }
-
-    public interface OnItemClickListener {
-        void onItemClick(View itemView, int position);
-    }
-
 
     public class DiffCallBack extends DiffUtil.Callback {
 
@@ -202,18 +184,18 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<Vie
         @Override
         public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
 
-            return areItemTheSame(data.get(oldItemPosition), data.get(newItemPosition));
+            return areItemTheSame(data.get(oldItemPosition), newDataList.get(newItemPosition));
         }
 
         @Override
         public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-            return areContentTheSame(data.get(oldItemPosition), data.get(newItemPosition));
+            return areContentTheSame(data.get(oldItemPosition), newDataList.get(newItemPosition));
         }
 
         @Nullable
         @Override
         public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-            return getPayload(data.get(oldItemPosition), data.get(newItemPosition));
+            return getPayload(null, newDataList.get(newItemPosition));
         }
     }
 

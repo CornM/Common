@@ -5,7 +5,7 @@ package com.zswl.common.api;
  */
 
 public interface Constant {
-    String USERID = "userid";
+    String USERID = "userId";
     String HEADERIMG = "headerimg";
     String PHONE = "phone";
     String NICKNAME = "nick_name";
