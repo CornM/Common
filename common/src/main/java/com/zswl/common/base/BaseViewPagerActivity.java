@@ -1,21 +1,11 @@
 package com.zswl.common.base;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 import android.widget.TextView;
 
 import com.zswl.common.R;
-import com.zswl.common.util.LogUtil;
 import com.zswl.common.widget.tablayout.TabLayout;
 
-import java.nio.file.FileStore;
 import java.util.ArrayList;
 import java.util.List;
 

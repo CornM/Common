@@ -1,16 +1,13 @@
 package com.zswl.common.base;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.lcodecore.tkrefreshlayout.footer.BallPulseView;
 import com.lcodecore.tkrefreshlayout.footer.LoadingView;
 import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
-import com.lcodecore.tkrefreshlayout.header.bezierlayout.BezierLayout;
-import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 import com.zswl.common.R;
 import com.zswl.common.api.ExceptionHandle;
 import com.zswl.common.util.RxUtil;
@@ -60,8 +57,13 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
             @Override
             public void onFinishRefresh() {
                 super.onFinishRefresh();
-                finishLoadData();
+                finishRefreshData();
+            }
 
+            @Override
+            public void onFinishLoadMore() {
+                super.onFinishLoadMore();
+                finishLoadData();
             }
         });
 
@@ -147,9 +149,16 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
     }
 
     /**
-     * 数据刷新或者加载完之后调用此方法
+     * 数据加载完之后调用此方法
      */
     public void finishLoadData() {
+
+    }
+
+    /**
+     * 数据刷新完之后调用此方法
+     */
+    public void finishRefreshData() {
 
     }
 

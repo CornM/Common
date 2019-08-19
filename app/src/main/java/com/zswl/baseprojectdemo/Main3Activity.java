@@ -1,33 +1,16 @@
 package com.zswl.baseprojectdemo;
 
-import android.support.constraint.Group;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
+import androidx.constraintlayout.widget.Group;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.zswl.common.api.ApiService;
 import com.zswl.common.base.BackActivity;
-import com.zswl.common.base.BaseObserver;
-import com.zswl.common.base.HttpResult;
-import com.zswl.common.util.LogUtil;
-import com.zswl.common.util.RxUtil;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Function;
-import io.reactivex.observables.GroupedObservable;
 
 public class Main3Activity extends BackActivity {
     @BindView(R.id.group)

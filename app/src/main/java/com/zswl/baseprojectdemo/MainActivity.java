@@ -1,36 +1,21 @@
 package com.zswl.baseprojectdemo;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.print.PrintAttributes;
 import android.print.PrintManager;
-import android.support.annotation.RequiresApi;
-import android.support.v4.print.PrintHelper;
+import androidx.annotation.RequiresApi;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zswl.common.api.ApiService;
-import com.zswl.common.base.BaseObserver;
-import com.zswl.common.base.BasePhotoActivity;
 import com.zswl.common.base.BasePhotoListActivity;
 import com.zswl.common.base.ImageBean;
 import com.zswl.common.util.GlideUtil;
-import com.zswl.common.util.RxParamUtil;
-import com.zswl.common.util.RxUtil;
-import com.zswl.common.widget.FileUtil;
-import com.zswl.common.widget.ImageUtil;
-
-import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 public class MainActivity extends BasePhotoListActivity {
 

@@ -2,8 +2,8 @@ package com.zswl.common.base;
 
 import android.Manifest;
 import android.content.Intent;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 
 import com.huantansheng.easyphotos.EasyPhotos;
@@ -11,7 +11,6 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zswl.common.R;
 import com.zswl.common.api.ExceptionHandle;
 import com.zswl.common.util.ToastUtil;
-import com.zswl.common.widget.ImageUtil;
 import com.zswl.common.widget.SelectPhotoDialog;
 
 import java.io.File;
@@ -20,10 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;

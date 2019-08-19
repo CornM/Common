@@ -1,13 +1,8 @@
 package com.zswl.baseprojectdemo;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.zswl.common.api.ApiService;
-import com.zswl.common.base.BaseHeaderAdapter;
-import com.zswl.common.base.BaseHeaderAndFooterListFragment;
 import com.zswl.common.base.BaseListFragment;
 import com.zswl.common.base.BaseRecycleViewAdapter;
 import com.zswl.common.base.HttpResult;
@@ -17,7 +12,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public class TestFragment extends BaseListFragment<TestBean, TestAdapter> implements BaseRecycleViewAdapter.OnItemClickListener {
+public class TestFragment extends BaseListFragment<TestBean, TestAdapter>  {
 
 
     @Override
@@ -44,7 +39,6 @@ public class TestFragment extends BaseListFragment<TestBean, TestAdapter> implem
     @Override
     public void setAdapterWrapper() {
         super.setAdapterWrapper();
-        adapter.setItemClickListener(this);
 
     }
 
@@ -53,9 +47,4 @@ public class TestFragment extends BaseListFragment<TestBean, TestAdapter> implem
 //        return R.layout.header_main2;
 //    }
 
-    @Override
-    public void onItemClick(View itemView, int position) {
-        TestBean bean=adapter.getDataList().get(position);
-        ToastUtil.showShortToast(bean.getName());
-    }
 }

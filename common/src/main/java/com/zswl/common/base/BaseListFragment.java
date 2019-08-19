@@ -1,9 +1,8 @@
 package com.zswl.common.base;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -57,8 +56,15 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
             @Override
             public void onFinishRefresh() {
                 super.onFinishRefresh();
+                finishRefreshData();
+            }
+
+            @Override
+            public void onFinishLoadMore() {
+                super.onFinishLoadMore();
                 finishLoadData();
             }
+
         });
 
         observer = new BaseObserver<List<B>>(context, false) {
@@ -121,6 +127,13 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
      * 数据刷新或者加载完之后调用此方法
      */
     public void finishLoadData() {
+
+    }
+
+    /**
+     * 数据刷新完之后调用此方法
+     */
+    public void finishRefreshData() {
 
     }
 
