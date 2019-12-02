@@ -52,7 +52,7 @@ public abstract class BaseWebViewActivity extends BackActivity {
                     //Handle telephony Urls
                     startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(url)));
                 }
-                return true;
+                return false;
             }
 
         });

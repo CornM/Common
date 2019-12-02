@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.EditText;
-
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatImageView;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
 
 import com.zswl.common.R;
 
@@ -18,7 +16,7 @@ import com.zswl.common.R;
  */
 
 @SuppressLint("AppCompatCustomView")
-public class MyEditText extends AppCompatEditText {
+public class MyCheckBox extends CheckBox {
     private float mLeftWidth;
     private float mLeftHeight;
     private float mTopWidth;
@@ -28,26 +26,27 @@ public class MyEditText extends AppCompatEditText {
     private float mBottomWidth;
     private float mBottomHeight;
 
-    public MyEditText(Context context) {
+    public MyCheckBox(Context context) {
         super(context);
     }
 
-    public MyEditText(Context context, AttributeSet attrs) {
+    public MyCheckBox(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.MyTextView);
-        mLeftWidth = t.getDimension(R.styleable.MyTextView_tv_left_width, dip2px(context, 20));
-        mLeftHeight = t.getDimension(R.styleable.MyTextView_tv_left_height, dip2px(context, 20));
-        mTopWidth = t.getDimension(R.styleable.MyTextView_tv_top_width, dip2px(context, 20));
-        mTopHeight = t.getDimension(R.styleable.MyTextView_tv_top_height, dip2px(context, 20));
-        mRightWidth = t.getDimension(R.styleable.MyTextView_tv_right_width, dip2px(context, 20));
-        mRightHeight = t.getDimension(R.styleable.MyTextView_tv_right_height, dip2px(context, 20));
-        mBottomWidth = t.getDimension(R.styleable.MyTextView_tv_bottom_width, dip2px(context, 20));
-        mBottomHeight = t.getDimension(R.styleable.MyTextView_tv_bottom_height, dip2px(context, 20));
+        TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.MyRadioButton);
+        mLeftWidth = t.getDimension(R.styleable.MyRadioButton_rb_left_width, dip2px(context, 25));
+        mLeftHeight = t.getDimension(R.styleable.MyRadioButton_rb_left_height, dip2px(context, 25));
+        mTopWidth = t.getDimension(R.styleable.MyRadioButton_rb_top_width, dip2px(context, 25));
+        mTopHeight = t.getDimension(R.styleable.MyRadioButton_rb_top_height, dip2px(context, 25));
+        mRightWidth = t.getDimension(R.styleable.MyRadioButton_rb_right_width, dip2px(context, 25));
+        mRightHeight = t.getDimension(R.styleable.MyRadioButton_rb_right_height, dip2px(context, 25));
+        mBottomWidth = t.getDimension(R.styleable.MyRadioButton_rb_bottom_width, dip2px(context, 25));
+        mBottomHeight = t.getDimension(R.styleable.MyRadioButton_rb_bottom_height, dip2px(context, 25));
         t.recycle();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        //让RadioButton的图标可调大小 属性：
         //让RadioButton的图标可调大小 属性：
         Drawable drawableLeft = this.getCompoundDrawables()[0];//获得文字左侧图片
         Drawable drawableTop = this.getCompoundDrawables()[1];//获得文字顶部图片

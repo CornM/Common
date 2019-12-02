@@ -1,6 +1,7 @@
 package com.zswl.common.api;
 
 
+import com.google.gson.GsonBuilder;
 import com.zswl.common.base.BaseApplication;
 import com.zswl.common.util.LogUtil;
 
@@ -10,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.internal.http.BridgeInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -26,13 +28,15 @@ public class ApiService {
     private static OkHttpClient.Builder okHttpClientBuilder;
 
     private ApiService() {
+        GsonBuilder builder = new GsonBuilder().serializeNulls();
 
         retrofit = new Retrofit.Builder().baseUrl(HOST)
                 .client(okHttpClientBuilder.build())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(BaseConverterFactory.create(builder.create()))
                 .build();
+
 
     }
 
@@ -42,7 +46,7 @@ public class ApiService {
 
     public static void init(BaseApplication baseApplication, ApiServiceOptions options) {
         if (options == null)
-            throw new IllegalArgumentException("options is not empty");
+            throw new IllegalArgumentException("options is null");
         HOST = options.getBaseUrl();
         //init apiservice with options
 
@@ -71,7 +75,7 @@ public class ApiService {
         for (Interceptor interceptor : options.getInterceptors()) {
             okHttpClientBuilder.addInterceptor(interceptor);
         }
-
+        okHttpClientBuilder.addInterceptor(new LogInterceptor());
 
     }
 

@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatTextView;
+
 import com.zswl.common.R;
 
 
@@ -15,9 +17,15 @@ import com.zswl.common.R;
  */
 
 @SuppressLint("AppCompatCustomView")
-public class MyTextView extends TextView {
-    private float mImg_width;
-    private float mImg_height;
+public class MyTextView extends AppCompatTextView {
+    private float mLeftWidth;
+    private float mLeftHeight;
+    private float mTopWidth;
+    private float mTopHeight;
+    private float mRightWidth;
+    private float mRightHeight;
+    private float mBottomWidth;
+    private float mBottomHeight;
 
     public MyTextView(Context context) {
         super(context);
@@ -26,8 +34,14 @@ public class MyTextView extends TextView {
     public MyTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.MyTextView);
-        mImg_width = t.getDimension(R.styleable.MyTextView_tv_width, dip2px(context, 20));
-        mImg_height = t.getDimension(R.styleable.MyTextView_tv_height, dip2px(context, 20));
+        mLeftWidth = t.getDimension(R.styleable.MyTextView_tv_left_width, dip2px(context, 20));
+        mLeftHeight = t.getDimension(R.styleable.MyTextView_tv_left_height, dip2px(context, 20));
+        mTopWidth = t.getDimension(R.styleable.MyTextView_tv_top_width, dip2px(context, 20));
+        mTopHeight = t.getDimension(R.styleable.MyTextView_tv_top_height, dip2px(context, 20));
+        mRightWidth = t.getDimension(R.styleable.MyTextView_tv_right_width, dip2px(context, 20));
+        mRightHeight = t.getDimension(R.styleable.MyTextView_tv_right_height, dip2px(context, 20));
+        mBottomWidth = t.getDimension(R.styleable.MyTextView_tv_bottom_width, dip2px(context, 20));
+        mBottomHeight = t.getDimension(R.styleable.MyTextView_tv_bottom_height, dip2px(context, 20));
         t.recycle();
     }
 
@@ -39,21 +53,19 @@ public class MyTextView extends TextView {
         Drawable drawableRight = this.getCompoundDrawables()[2];//获得文字右侧图片
         Drawable drawableBottom = this.getCompoundDrawables()[3];//获得文字底部图片
         if (drawableLeft != null) {
-            drawableLeft.setBounds(0, 0, (int) mImg_width, (int) mImg_height);
-            this.setCompoundDrawables(drawableLeft, null, null, null);
-        }
-        if (drawableRight != null) {
-            drawableRight.setBounds(0, 0, (int) mImg_width, (int) mImg_height);
-            this.setCompoundDrawables(null, null, drawableRight, null);
+            drawableLeft.setBounds(0, 0, (int) mLeftWidth, (int) mLeftHeight);
         }
         if (drawableTop != null) {
-            drawableTop.setBounds(0, 0, (int) mImg_width, (int) mImg_height);
-            this.setCompoundDrawables(null, drawableTop, null, null);
+            drawableTop.setBounds(0, 0, (int) mTopWidth, (int) mTopHeight);
+        }
+        if (drawableRight != null) {
+            drawableRight.setBounds(0, 0, (int) mRightWidth, (int) mRightHeight);
         }
         if (drawableBottom != null) {
-            drawableBottom.setBounds(0, 0, (int) mImg_width, (int) mImg_height);
-            this.setCompoundDrawables(null, null, null, drawableBottom);
+            drawableBottom.setBounds(0, 0, (int) mBottomWidth, (int) mBottomHeight);
         }
+        this.setCompoundDrawables(drawableLeft, drawableTop, drawableRight, drawableBottom);
+
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
     }

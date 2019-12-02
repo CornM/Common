@@ -2,7 +2,14 @@ package com.zswl.common.base;
 
 import android.app.Activity;
 import android.app.Application;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 
 import java.util.Stack;
 
@@ -58,6 +65,7 @@ public class BaseApplication extends Application implements Application.Activity
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         addActivity(activity);
+        setStatusBarColor(activity.getWindow(), Color.WHITE, true);
     }
 
     @Override
@@ -89,4 +97,32 @@ public class BaseApplication extends Application implements Application.Activity
     public void onActivityDestroyed(Activity activity) {
         removeActivity(activity);
     }
+
+    public static void setStatusBarColor(@NonNull Window window, @ColorInt int color, boolean colorIsLight) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            window.setStatusBarColor(color);
+
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            int systemUiVisibility = window.getDecorView().getSystemUiVisibility();
+
+            if (colorIsLight) {
+
+                window.getDecorView().setSystemUiVisibility(systemUiVisibility | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+            }else {
+
+                window.getDecorView().setSystemUiVisibility(systemUiVisibility ^ View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+            }
+
+        }
+
+    }
+
+
 }

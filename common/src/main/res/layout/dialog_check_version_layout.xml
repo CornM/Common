@@ -7,39 +7,29 @@
     android:layout_marginRight="10dp"
     app:cardCornerRadius="10dp">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_white"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:text="有新版本,是否更新?"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/et_value"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:background="@null"
-            android:gravity="center_horizontal"
-            android:padding="10dp"
-            android:textSize="@dimen/font_12sp_size"
-            android:textColor="@color/color_333" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/bg_color" />
+            android:background="@color/color_line" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -51,13 +41,13 @@
                 android:gravity="center"
                 android:padding="6dp"
                 android:text="取消"
-                android:textColor="@color/colorMain"
+                android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/bg_color" />
+                android:background="@color/color_line" />
 
             <TextView
                 android:id="@+id/tv_confirm"
@@ -67,9 +57,9 @@
                 android:gravity="center"
                 android:padding="6dp"
                 android:text="确定"
-                android:textColor="@color/colorMain"
+                android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

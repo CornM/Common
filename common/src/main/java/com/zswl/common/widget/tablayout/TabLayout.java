@@ -747,7 +747,7 @@ public class TabLayout extends HorizontalScrollView {
     }
 
     /**
-     * The one-stop shop for setting up this {@link TabLayout} with a {@link ViewPager}.
+     * The one-stop shop_h for setting up this {@link TabLayout} with a {@link ViewPager}.
      *
      * <p>This is the same as calling {@link #setupWithViewPager(ViewPager, boolean)} with
      * auto-refresh enabled.</p>
@@ -759,7 +759,7 @@ public class TabLayout extends HorizontalScrollView {
     }
 
     /**
-     * The one-stop shop for setting up this {@link TabLayout} with a {@link ViewPager}.
+     * The one-stop shop_h for setting up this {@link TabLayout} with a {@link ViewPager}.
      *
      * <p>This method will link the given ViewPager and this TabLayout together so that
      * changes in one are automatically reflected in the other. This includes scroll state changes

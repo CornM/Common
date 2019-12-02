@@ -5,6 +5,7 @@ import com.zswl.common.util.LogUtil;
 
 import java.io.IOException;
 
+import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -24,6 +25,7 @@ public class LogInterceptor implements Interceptor {
         LogUtil.d(String.format("%1$s->%2$s",request.method(),request.url()));
 
         if(request.body()!=null){
+
             LogUtil.d("RequestBody:" + bodyToString(request.body()));
         }
 

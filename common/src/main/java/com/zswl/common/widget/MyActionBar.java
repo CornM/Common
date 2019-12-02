@@ -3,13 +3,14 @@ package com.zswl.common.widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.zswl.common.R;
 
@@ -18,7 +19,7 @@ import com.zswl.common.R;
  * Created by Administrator on 2018/4/12 0012.
  */
 
-public class MyActionBar extends LinearLayout {
+public class MyActionBar extends LinearLayoutCompat {
     private boolean visibilityIvLeft;
     private boolean visibilityIvRight;
     private boolean visibilityTvRight;
@@ -32,7 +33,7 @@ public class MyActionBar extends LinearLayout {
     private ImageView leftIv;
     private ImageView rightIv;
     private View actionBar;
-//    private int bgColor;
+    private int bgColor;
     private int bgDrawable;
     private int titleFontColor;
     private int rightFontColor;
@@ -62,7 +63,7 @@ public class MyActionBar extends LinearLayout {
         visibilityIvRight = array.getBoolean(R.styleable.MyActionBar_visibility_iv_right, false);
         rightIvBg = array.getResourceId(R.styleable.MyActionBar_background_iv_rigt, 0);
         bgDrawable = array.getResourceId(R.styleable.MyActionBar_background_drawable, 0);
-//        bgColor = array.getColor(R.styleable.MyActionBar_background_color, context.getResources().getColor(R.color.color_white));
+        bgColor = array.getColor(R.styleable.MyActionBar_background_color, context.getResources().getColor(R.color.color_white));
         titleFontColor = array.getColor(R.styleable.MyActionBar_title_font_color, context.getResources().getColor(R.color.color_title_actionbar));
         rightFontColor = array.getColor(R.styleable.MyActionBar_right_font_color, context.getResources().getColor(R.color.color_right_actionbar));
         rightTv.setText(rightStr);
@@ -76,8 +77,8 @@ public class MyActionBar extends LinearLayout {
         if (titleColor != 0) {
             title.setTextColor(titleColor);
         }
-//        if (bgColor != 0)
-//            rootView.setBackgroundColor(bgColor);
+        if (bgColor != 0)
+            rootView.setBackgroundColor(bgColor);
         if (bgDrawable != 0)
             rootView.setBackgroundResource(bgDrawable);
         if (titleFontColor != 0)

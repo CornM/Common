@@ -13,9 +13,7 @@ public class RxParamUtil {
     }
 
     public static MultipartBody.Part get(File value) {
-        RequestBody imageBody = RequestBody.create(MediaType.parse("image/*"), value);
-        return MultipartBody.Part.createFormData("img",
-                "android" + System.currentTimeMillis() + ".jpg", imageBody);
+        return get("img", value);
     }
 
     public static MultipartBody.Part get(String param, File value) {

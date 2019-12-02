@@ -57,13 +57,8 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
             @Override
             public void onFinishRefresh() {
                 super.onFinishRefresh();
-                finishRefreshData();
-            }
-
-            @Override
-            public void onFinishLoadMore() {
-                super.onFinishLoadMore();
                 finishLoadData();
+
             }
         });
 
@@ -142,6 +137,11 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
     protected void getListData(int page) {
         Observable observable = getApi(page);
         if (observable == null) {
+            if (!isRefresh) {
+                refreshLayout.finishLoadmore();
+            } else {
+                refreshLayout.finishRefreshing();
+            }
             return;
         }
         observable.compose(RxUtil.io_main(lifeSubject))
@@ -149,16 +149,9 @@ public abstract class BaseListActivity<B extends BaseBean, A extends BaseRecycle
     }
 
     /**
-     * 数据加载完之后调用此方法
+     * 数据刷新或者加载完之后调用此方法
      */
     public void finishLoadData() {
-
-    }
-
-    /**
-     * 数据刷新完之后调用此方法
-     */
-    public void finishRefreshData() {
 
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Administrator on 2018/4/16 0016.
  */
 
-public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<ViewHolder>  {
+public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     protected Context context;
     protected List<T> data;
     protected int layoutId;
@@ -193,7 +193,7 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter<Vie
         @Nullable
         @Override
         public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-            return getPayload(null, newDataList.get(newItemPosition));
+            return getPayload(data.get(oldItemPosition), newDataList.get(newItemPosition));
         }
     }
 

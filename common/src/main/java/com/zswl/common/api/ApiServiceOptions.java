@@ -17,7 +17,6 @@ public class ApiServiceOptions {
             throw new IllegalArgumentException("baseUrl is empty, you must set baseUrl ");
         this.baseUrl = baseUrl;
         interceptors = new ArrayList<>();
-        interceptors.add(new LogInterceptor());
     }
 
     /**

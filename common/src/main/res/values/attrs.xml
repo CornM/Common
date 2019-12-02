@@ -16,10 +16,15 @@
     </declare-styleable>
 
     <declare-styleable name="MyTextView">
-        <attr name="tv_width" format="dimension" />
-        <attr name="tv_height" format="dimension" />
+        <attr name="tv_left_width" format="dimension" />
+        <attr name="tv_left_height" format="dimension" />
+        <attr name="tv_top_width" format="dimension" />
+        <attr name="tv_top_height" format="dimension" />
+        <attr name="tv_right_width" format="dimension" />
+        <attr name="tv_right_height" format="dimension" />
+        <attr name="tv_bottom_width" format="dimension" />
+        <attr name="tv_bottom_height" format="dimension" />
     </declare-styleable>
-
 
     <declare-styleable name="SwipeLayout">
         <attr name="drag_edge">
@@ -54,8 +59,14 @@
     </declare-styleable>
 
     <declare-styleable name="MyRadioButton">
-        <attr name="rb_width" format="dimension" />
-        <attr name="rb_height" format="dimension" />
-    </declare-styleable>
+        <attr name="rb_left_width" format="dimension" />
+        <attr name="rb_left_height" format="dimension" />
 
+        <attr name="rb_top_width" format="dimension" />
+        <attr name="rb_top_height" format="dimension" />
+        <attr name="rb_right_width" format="dimension" />
+        <attr name="rb_right_height" format="dimension" />
+        <attr name="rb_bottom_width" format="dimension" />
+        <attr name="rb_bottom_height" format="dimension" />
+    </declare-styleable>
 </resources>

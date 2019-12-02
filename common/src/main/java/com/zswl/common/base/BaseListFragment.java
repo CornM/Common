@@ -16,6 +16,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -56,18 +57,22 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
             @Override
             public void onFinishRefresh() {
                 super.onFinishRefresh();
-                finishRefreshData();
-            }
-
-            @Override
-            public void onFinishLoadMore() {
-                super.onFinishLoadMore();
                 finishLoadData();
             }
-
         });
 
         observer = new BaseObserver<List<B>>(context, false) {
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                if (!isRefresh) {
+                    refreshLayout.finishLoadmore();
+                } else {
+                    adapter.refreshData(new ArrayList<B>());
+                    refreshLayout.finishRefreshing();
+                }
+            }
+
             @Override
             public void receiveResult(List<B> result) {
                 if (!isRefresh) {
@@ -78,6 +83,7 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
 //                    adapter.notifyDataChanged(result);
                     refreshLayout.finishRefreshing();
                 }
+
 
             }
         };
@@ -131,13 +137,6 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
     }
 
     /**
-     * 数据刷新完之后调用此方法
-     */
-    public void finishRefreshData() {
-
-    }
-
-    /**
      * 设置包装adapter适配器
      */
     public void setAdapterWrapper() {
@@ -152,6 +151,11 @@ public abstract class BaseListFragment<B extends BaseBean, A extends BaseRecycle
      */
     protected void getListData(int page) {
         if (getApi(page) == null) {
+            if (!isRefresh) {
+                refreshLayout.finishLoadmore();
+            } else {
+                refreshLayout.finishRefreshing();
+            }
             return;
         }
         getApi(page).compose(RxUtil.io_main(lifeSubject))

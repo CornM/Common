@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.RadioButton;
 
+import androidx.appcompat.widget.AppCompatRadioButton;
+
 import com.zswl.common.R;
 
 
@@ -15,9 +17,15 @@ import com.zswl.common.R;
  */
 
 @SuppressLint("AppCompatCustomView")
-public class MyRadioButton extends RadioButton {
-    private float mImg_width;
-    private float mImg_height;
+public class MyRadioButton extends AppCompatRadioButton {
+    private float mLeftWidth;
+    private float mLeftHeight;
+    private float mTopWidth;
+    private float mTopHeight;
+    private float mRightWidth;
+    private float mRightHeight;
+    private float mBottomWidth;
+    private float mBottomHeight;
 
     public MyRadioButton(Context context) {
         super(context);
@@ -26,8 +34,14 @@ public class MyRadioButton extends RadioButton {
     public MyRadioButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.MyRadioButton);
-        mImg_width = t.getDimension(R.styleable.MyRadioButton_rb_width, dip2px(context, 25));
-        mImg_height = t.getDimension(R.styleable.MyRadioButton_rb_height, dip2px(context, 25));
+        mLeftWidth = t.getDimension(R.styleable.MyRadioButton_rb_left_width, dip2px(context, 25));
+        mLeftHeight = t.getDimension(R.styleable.MyRadioButton_rb_left_height, dip2px(context, 25));
+        mTopWidth = t.getDimension(R.styleable.MyRadioButton_rb_top_width, dip2px(context, 25));
+        mTopHeight = t.getDimension(R.styleable.MyRadioButton_rb_top_height, dip2px(context, 25));
+        mRightWidth = t.getDimension(R.styleable.MyRadioButton_rb_right_width, dip2px(context, 25));
+        mRightHeight = t.getDimension(R.styleable.MyRadioButton_rb_right_height, dip2px(context, 25));
+        mBottomWidth = t.getDimension(R.styleable.MyRadioButton_rb_bottom_width, dip2px(context, 25));
+        mBottomHeight = t.getDimension(R.styleable.MyRadioButton_rb_bottom_height, dip2px(context, 25));
         t.recycle();
     }
 
@@ -39,21 +53,19 @@ public class MyRadioButton extends RadioButton {
         Drawable drawableRight = this.getCompoundDrawables()[2];//获得文字右侧图片
         Drawable drawableBottom = this.getCompoundDrawables()[3];//获得文字底部图片
         if (drawableLeft != null) {
-            drawableLeft.setBounds(0, 0, (int) mImg_width, (int) mImg_height);
-            this.setCompoundDrawables(drawableLeft, null, null, null);
-        }
-        if (drawableRight != null) {
-            drawableRight.setBounds(0, 0, (int) mImg_width, (int) mImg_height);
-            this.setCompoundDrawables(null, null, drawableRight, null);
+            drawableLeft.setBounds(0, 0, (int) mLeftWidth, (int) mLeftHeight);
         }
         if (drawableTop != null) {
-            drawableTop.setBounds(0, 0, (int) mImg_width, (int) mImg_height);
-            this.setCompoundDrawables(null, drawableTop, null, null);
+            drawableTop.setBounds(0, 0, (int) mTopWidth, (int) mTopHeight);
+        }
+        if (drawableRight != null) {
+            drawableRight.setBounds(0, 0, (int) mRightWidth, (int) mRightHeight);
         }
         if (drawableBottom != null) {
-            drawableBottom.setBounds(0, 0, (int) mImg_width, (int) mImg_height);
-            this.setCompoundDrawables(null, null, null, drawableBottom);
+            drawableBottom.setBounds(0, 0, (int) mBottomWidth, (int) mBottomHeight);
         }
+        this.setCompoundDrawables(drawableLeft, drawableTop, drawableRight, drawableBottom);
+
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
     }

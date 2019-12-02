@@ -23,7 +23,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="男"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorMain"
             android:textSize="@dimen/font_title_size" />
 
         <View
@@ -38,7 +38,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="女"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorMain"
             android:textSize="@dimen/font_title_size" />
 
         <View
@@ -68,6 +68,6 @@
         android:background="@drawable/bg_select_photo"
         android:gravity="center"
         android:text="取消"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorMain"
         android:textSize="@dimen/font_title_size" />
 </androidx.appcompat.widget.LinearLayoutCompat>

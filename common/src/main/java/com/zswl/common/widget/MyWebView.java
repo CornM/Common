@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -11,7 +12,7 @@ import android.webkit.WebViewClient;
 /**
  * Created by Administrator on 2018/7/16 0016.
  */
-
+@SuppressLint("AppCompatCustomView")
 public class MyWebView extends WebView {
     private final String TAG = "MyWebView";
     private LoadingDialog dialog;
@@ -25,7 +26,7 @@ public class MyWebView extends WebView {
         super(context, attrs);
         dialog = new LoadingDialog(context);
         getSettings().setJavaScriptEnabled(true);
-        setWebViewClient(new WebViewClient());
+
         setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {

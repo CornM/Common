@@ -26,5 +26,17 @@ public class ToastUtil {
         toast.show();
     }
 
+    public static void showLongToast(String msg) {
+        if (TextUtils.isEmpty(msg)) {
+            return;
+        }
+        if (toast == null) {
+            toast = Toast.makeText(BaseApplication.getAppInstance(), msg, Toast.LENGTH_LONG);
+        } else {
+            toast.setText(msg);
+        }
+        toast.show();
+    }
+
 
 }
