@@ -15,6 +15,11 @@ public class ImageBean extends BaseBean {
 
     private int type;
 
+    public int imageViewHeight;
+    public int imageViewWidth;
+    public int imageViewX;
+    public int imageViewY;
+
     public ImageBean(String imgPath) {
         this.imgPath = imgPath;
     }

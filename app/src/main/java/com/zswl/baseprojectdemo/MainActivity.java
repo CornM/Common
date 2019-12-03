@@ -5,19 +5,24 @@ import android.content.Intent;
 import android.os.Build;
 import android.print.PrintAttributes;
 import android.print.PrintManager;
+
 import androidx.annotation.RequiresApi;
+
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.zswl.common.base.BasePhotoActivity;
 import com.zswl.common.base.BasePhotoListActivity;
 import com.zswl.common.base.ImageBean;
+import com.zswl.common.util.BigImageUtil;
 import com.zswl.common.util.GlideUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BasePhotoListActivity {
+public class MainActivity extends BasePhotoActivity {
 
     @BindView(R.id.tv)
     TextView textView;
@@ -37,8 +42,13 @@ public class MainActivity extends BasePhotoListActivity {
 
     @OnClick(R.id.iv)
     public void clickImg() {
-        startActivity(new Intent(context, Main2Activity.class));
-//        changeHeaderImg();
+//        startActivity(new Intent(context, Main2Activity.class));
+        String path= (String) imageView.getTag();
+        if (TextUtils.isEmpty(path)){
+            changeHeaderImg();
+        }else {
+            BigImageUtil.toBigNetImage(context,"/upload/goods/1.jpg");
+        }
 //        List<String> list=new ArrayList<>();
 //        for (int i = 0; i < 12; i++) {
 //            list.add(i+"测试");
@@ -47,11 +57,13 @@ public class MainActivity extends BasePhotoListActivity {
 //        stringSpinnerPopWindow.showAsDropDown(textView);
 
     }
-//
+
+    //
 //    @TargetApi(Build.VERSION_CODES.KITKAT)
 //    @Override
     public void imagePath(String srcPath, String zipPath) {
-
+        GlideUtil.showWithPath(srcPath, imageView);
+        imageView.setTag(srcPath);
 
 //        PrintHelper photoPrinter = new PrintHelper(this);
 //        photoPrinter.setScaleMode(PrintHelper.SCALE_MODE_FIT);//设置填充的类型，填充的类型指的是在A4纸上打印时的填充类型，两种模式
@@ -78,15 +90,15 @@ public class MainActivity extends BasePhotoListActivity {
         Log.i("blb", "--------is portrait:" + temp.isPortrait());
         builder.setMediaSize(temp);//这个也不管用
 //  builder.setResolution(new PrintAttributes.Resolution("white", "whiteRadish", 150, 150));//设置打印纸的分辨率，这个也不管用
-        MyPrintAdapter myPrintAdapter = new MyPrintAdapter(this,absPicturePath);
+        MyPrintAdapter myPrintAdapter = new MyPrintAdapter(this, absPicturePath);
         printManager.print(jobName, myPrintAdapter, builder.build());
     }
 
-    @Override
-    public void showImg(ImageBean imageBean, ImageView imageView) {
-        GlideUtil.showWithPath(imageBean.getImgPath(), imageView);
-
-    }
+//    @Override
+//    public void showImg(ImageBean imageBean, ImageView imageView) {
+//        GlideUtil.showWithPath(imageBean.getImgPath(), imageView);
+//        BigImageUtil.toBigNetImage(context,imageBean.getImgPath());
+//    }
 
 
 //    @Override
